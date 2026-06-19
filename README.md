@@ -32,6 +32,7 @@ This repo is licensed under the [MIT License](LICENSE).
 
 
 # News & Updates
+- **2026-06-20:** GMR now supports robot-to-robot retargeting from Unitree G1 `unitree_g1` to PND Adam Pro `pnd_adam_pro`, including offline pickle conversion and a real-time Python API.
 - **2026-01-21:** GMR now supports [Xsens](https://www.xsens.com/) BVH offline data.
 - **2026-01-12:** GMR now supports [Fourier GR3](https://www.fftai.com/), the 17th humanoid robot in the repo.
 - **2025-12-02:** GMR now supports [TWIST2](https://yanjieze.com/TWIST2), which utilizes [XRoboToolkit SDK](https://github.com/XR-Robotics/XRoboToolkit-PC-Service).
@@ -230,6 +231,95 @@ Each frame of **human motion data** is formulated as a dict of (human_body_name,
 Each frame of **robot motion data** can be understood as a tuple of (robot_base_translation, robot_base_rotation, robot_joint_positions).
 
 ## Usage
+
+### Robot-to-Robot Retargeting: Unitree G1 to PND Adam Pro
+
+This repository includes a robot-to-robot path that converts Unitree G1
+`unitree_g1` states into PND Adam Pro `pnd_adam_pro` states. The bridge reuses
+the existing GMR IK solver: Unitree G1 qpos is first converted to selected G1
+body frames with MuJoCo forward kinematics, then Adam Pro IK is solved against
+those frames.
+
+Model note: the supplied Adam Pro URDF is kept unchanged at
+`assets/pnd_models/adam_pro/adam_pro.urdf`. Runtime retargeting uses
+`assets/pnd_models/adam_pro/adam_pro.xml` because this MuJoCo XML loads
+directly and corresponds to the same Adam Pro asset.
+
+Offline conversion from a saved Unitree G1 pickle:
+
+```bash
+python scripts/g1_to_adam_pro.py \
+  --g1_motion_path path/to/g1_motion.pkl \
+  --save_path path/to/adam_pro_motion.pkl
+```
+
+The input pickle can contain either:
+
+- `qpos`: full Unitree G1 MuJoCo qpos in `[root_pos(3), root_quat_wxyz(4), dof_pos(29)]` order, or
+- `root_pos`, `root_rot`, and `dof_pos` in the normal GMR motion format.
+
+By default `root_rot` is interpreted as `xyzw`, matching `load_robot_motion()`.
+Use `--root_rot_order wxyz` if the source file stores MuJoCo scalar-first
+quaternions.
+
+Visualize a converted Adam Pro motion:
+
+```bash
+python scripts/vis_g1_to_adam_pro.py \
+  --adam_motion_path path/to/adam_pro_motion.pkl \
+  --loop \
+  --rate_limit
+```
+
+Convert and visualize in one pass:
+
+```bash
+python scripts/g1_to_adam_pro.py \
+  --g1_motion_path path/to/g1_motion.pkl \
+  --save_path path/to/adam_pro_motion.pkl \
+  --visualize \
+  --rate_limit
+```
+
+Real-time API:
+
+```python
+from general_motion_retargeting import RobotToRobotRetargeting
+
+retargeter = RobotToRobotRetargeting(
+    src_robot="unitree_g1",
+    tgt_robot="pnd_adam_pro",
+    verbose=False,
+)
+
+# Lower max_iter for real-time control if needed.
+retargeter.retargeter.max_iter = 5
+
+while True:
+    # Fill these from your Unitree G1 state estimator or simulator.
+    g1_root_pos = ...
+    g1_root_quat_wxyz = ...
+    g1_dof_pos = ...
+
+    g1_qpos = retargeter.make_source_qpos(
+        g1_root_pos,
+        g1_root_quat_wxyz,
+        g1_dof_pos,
+    )
+    adam_qpos = retargeter.retarget_qpos(g1_qpos)
+
+    adam_root_pos = adam_qpos[:3]
+    adam_root_quat_wxyz = adam_qpos[3:7]
+    adam_dof_pos = adam_qpos[7:]
+```
+
+For real-time streaming, instantiate `RobotToRobotRetargeting` once and call
+`retarget_qpos()` every frame. The IK configuration is stateful, so the previous
+Adam Pro solution is reused as the next frame's initial guess. If your online
+source only provides the 29 Unitree G1 joint positions, provide a fixed or
+estimated G1 floating-base pose before calling `make_source_qpos()`.
+
+See `docs/g1_to_adam_pro.md` for the focused interface reference.
 
 ### [NEW] PICO Streaming to Robot (TWIST2)
 

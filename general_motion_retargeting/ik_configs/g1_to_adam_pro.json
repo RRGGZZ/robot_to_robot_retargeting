@@ -1,0 +1,133 @@
+{
+    "robot_root_name": "pelvis",
+    "human_root_name": "pelvis",
+    "ground_height": 0.0,
+    "human_height_assumption": 1.0,
+    "use_ik_match_table1": true,
+    "use_ik_match_table2": false,
+    "human_scale_table": {
+        "pelvis": 1.0,
+        "left_hip_roll_link": 1.0,
+        "left_knee_link": 1.0,
+        "left_toe_link": 1.0,
+        "right_hip_roll_link": 1.0,
+        "right_knee_link": 1.0,
+        "right_toe_link": 1.0,
+        "torso_link": 1.0,
+        "head_mocap": 1.0,
+        "left_shoulder_roll_link": 1.0,
+        "left_elbow_link": 1.0,
+        "left_rubber_hand": 1.0,
+        "right_shoulder_roll_link": 1.0,
+        "right_elbow_link": 1.0,
+        "right_rubber_hand": 1.0
+    },
+    "ik_match_table1": {
+        "pelvis": [
+            "pelvis",
+            100,
+            20,
+            [0.0, 0.0, 0.157],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "hipRollLeft": [
+            "left_hip_roll_link",
+            5,
+            20,
+            [-0.0255, 0.03626198, 0.21734701],
+            [0.9961786857, 0.0, 0.0873385724, 0.0]
+        ],
+        "shinLeft": [
+            "left_knee_link",
+            10,
+            20,
+            [0.01850233, -0.00138692, 0.10197776],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "toeLeft": [
+            "left_toe_link",
+            100,
+            20,
+            [-0.08149767, -0.00129248, 0.06954576],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "hipRollRight": [
+            "right_hip_roll_link",
+            5,
+            20,
+            [-0.0255, -0.03626198, 0.21734701],
+            [0.9961786857, 0.0, 0.0873385724, 0.0]
+        ],
+        "shinRight": [
+            "right_knee_link",
+            10,
+            20,
+            [0.01850233, 0.00138692, 0.10197776],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "toeRight": [
+            "right_toe_link",
+            100,
+            20,
+            [-0.08149767, 0.00129248, 0.06954576],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "torso": [
+            "torso_link",
+            10,
+            50,
+            [0.0039635, 0.0005, 0.29],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "neckPitch_link": [
+            "head_mocap",
+            5,
+            5,
+            [0.0225635, 0.02045, 0.3345],
+            [1.0, 0.0, 0.0, 0.0]
+        ],
+        "shoulderRollLeft": [
+            "left_shoulder_roll_link",
+            5,
+            50,
+            [0.03619963, 0.06591019, 0.31914657],
+            [0.9999999946, -0.0000292745, -0.0000274716, 0.0000957958]
+        ],
+        "elbowLeft": [
+            "left_elbow_link",
+            20,
+            20,
+            [-0.01577448, 0.06516246, 0.24021508],
+            [0.9999999946, -0.0000292745, -0.0000274716, 0.0000957958]
+        ],
+        "wristRollLeft": [
+            "left_rubber_hand",
+            30,
+            40,
+            [-0.26627486, 0.08881717, -0.02437282],
+            [0.9999999946, -0.0000292745, -0.0000274716, 0.0000957958]
+        ],
+        "shoulderRollRight": [
+            "right_shoulder_roll_link",
+            5,
+            50,
+            [0.03619963, -0.06492019, 0.31914657],
+            [0.9999999946, 0.0000292745, -0.0000274716, -0.0000957958]
+        ],
+        "elbowRight": [
+            "right_elbow_link",
+            20,
+            20,
+            [-0.01577448, -0.06417246, 0.24021508],
+            [0.9999999946, 0.0000292745, -0.0000274716, -0.0000957958]
+        ],
+        "wristRollRight": [
+            "right_rubber_hand",
+            30,
+            40,
+            [-0.26627486, -0.08782717, -0.02437282],
+            [0.9999999946, 0.0000292745, -0.0000274716, -0.0000957958]
+        ]
+    },
+    "ik_match_table2": {}
+}

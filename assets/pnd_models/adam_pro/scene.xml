@@ -1,0 +1,23 @@
+<mujoco model="scene">
+  <compiler angle="radian" coordinate="local" />
+  <option gravity="0 0 -9.81" />
+  <asset>
+    <mesh name="Cylinder_001" file="objects/Cylinder_001.obj" />
+    <texture name="Cylinder_001_tex" type="2d" file="textures/Cylinder_001_tex.png" />
+    <material name="Cylinder_001_mat" texture="Cylinder_001_tex" />
+    <mesh name="Cylinder_001_col" file="objects/Cylinder_001_col.obj" />
+    <mesh name="rubberduck" file="objects/rubberduck.obj" />
+    <texture name="rubberduck_tex" type="2d" file="textures/rubberduck_tex.png" />
+    <material name="rubberduck_mat" texture="rubberduck_tex" />
+  </asset>
+  <worldbody>
+    <body name="Cylinder_001" pos="0.000000 0.000000 0.000000" quat="1.00000000 0.00000000 0.00000000 0.00000000">
+      <geom type="mesh" mesh="Cylinder_001" material="Cylinder_001_mat" contype="0" conaffinity="0" group="1" />
+      <geom type="mesh" mesh="Cylinder_001_col" material="Cylinder_001_mat" group="0" />
+    </body>
+    <body name="rubberduck" pos="0.000000 0.000000 0.641339" quat="1.00000000 0.00000000 0.00000000 0.00000000">
+      <geom type="mesh" mesh="rubberduck" material="rubberduck_mat" contype="0" conaffinity="0" group="1" />
+      <geom type="mesh" mesh="rubberduck" material="rubberduck_mat" group="0" />
+    </body>
+  </worldbody>
+</mujoco>

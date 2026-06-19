@@ -20,6 +20,7 @@ ROBOT_XML_DICT = {
     "berkeley_humanoid_lite": ASSET_ROOT / "berkeley_humanoid_lite" / "bhl_scene.xml",
     "booster_k1": ASSET_ROOT / "booster_k1" / "K1_serial.xml",
     "pnd_adam_lite": ASSET_ROOT / "pnd_adam_lite" / "scene.xml",
+    "pnd_adam_pro": ASSET_ROOT / "pnd_models" / "adam_pro" / "adam_pro.xml",
     "tienkung": ASSET_ROOT / "tienkung" / "mjcf" / "tienkung.xml",
     "pal_talos": ASSET_ROOT / "pal_talos" / "talos.xml",
     "fourier_gr3": ASSET_ROOT / "fourier_gr3v2_1_1" / "mjcf" / "gr3v2_1_1_dummy_hand.xml",
@@ -45,6 +46,9 @@ IK_CONFIG_DICT = {
         "pnd_adam_lite": IK_CONFIG_ROOT / "smplx_to_adam.json",
         "tienkung": IK_CONFIG_ROOT / "smplx_to_tienkung.json",
         "fourier_gr3": IK_CONFIG_ROOT / "smplx_to_gr3.json",
+    },
+    "unitree_g1": {
+        "pnd_adam_pro": IK_CONFIG_ROOT / "g1_to_adam_pro.json",
     },
     "bvh_lafan1":{
         "unitree_g1": IK_CONFIG_ROOT / "bvh_lafan1_to_g1.json",
@@ -95,6 +99,7 @@ ROBOT_BASE_DICT = {
     "berkeley_humanoid_lite": "imu_2",
     "booster_k1": "Trunk",
     "pnd_adam_lite": "pelvis",
+    "pnd_adam_pro": "pelvis",
     "tienkung": "Base_link",
     "pal_talos": "base_link",
     "fourier_gr3": "base_link",
@@ -116,6 +121,7 @@ VIEWER_CAM_DISTANCE_DICT = {
     "berkeley_humanoid_lite": 2.0,
     "booster_k1": 2.0,
     "pnd_adam_lite": 3.0,
+    "pnd_adam_pro": 3.0,
     "tienkung": 3.0,
     "pal_talos": 3.0,
     "fourier_gr3": 2.0,

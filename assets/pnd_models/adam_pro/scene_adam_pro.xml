@@ -1,0 +1,53 @@
+
+<mujoco model="adam_pro scene">
+	<include file="adam_pro.xml" />
+	<statistic center="0 0 1" extent="1.8" />
+	<visual>
+		<headlight diffuse="0.8 0.8 0.8" ambient="0.1 0.1 0.1" specular="0.9 0.9 0.9"/>
+		<rgba haze="0.15 0.25 0.35 1"/>
+		<global azimuth="-140" elevation="-20" offwidth="2080" offheight="1170"/>
+	</visual>
+	<asset>
+		<texture type="skybox" builtin="gradient" rgb1="1 1 1" rgb2="1 1 1" width="800" height="800"/>
+		<texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="1 1 1" rgb2="1 1 1" markrgb="0 0 0"
+		  width="300" height="300"/>
+		<material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0"/>
+		<texture type="skybox" builtin="gradient" rgb1=".4 .5 .6" rgb2="0 0 0" width="100" height="100"/>
+		<texture builtin="flat" height="1278" mark="cross" markrgb="1 1 1" name="texgeom" random="0.01" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" type="cube" width="127"/>
+		<texture name="texplane" builtin="checker" height="512" width="512" rgb1=".2 .3 .4" rgb2=".1 .15 .2" type="2d" />
+		<material name="MatPlane" reflectance="0.5" shininess="0.01" specular="0.1" texrepeat="1 1" texture="texplane" texuniform="true" />
+		<material name="geom" texture="texgeom" texuniform="true"/>
+		<mesh name="Cylinder_001" file="../objects/Cylinder_001.obj" />
+		<texture name="Cylinder_001_tex" type="2d" file="textures/Cylinder_001_tex.png" />
+		<material name="Cylinder_001_mat" texture="Cylinder_001_tex" />
+		<mesh name="Cylinder_001_col" file="../objects/Cylinder_001_col.obj" />
+		<mesh name="rubberduck" file="../objects/rubberduck.obj" />
+		<texture name="rubberduck_tex" type="2d" file="textures/rubberduck_tex.png" />
+		<material name="rubberduck_mat" texture="rubberduck_tex" />
+
+		
+
+	</asset>
+	<worldbody>
+		<geom name="floor" size="0 0 0.01" type="plane" material="groundplane" contype="1" conaffinity="0" priority="1"
+		  friction="0.6" condim="3"/>
+	
+			<light diffuse=".5 .5 .5" pos="-3 -3 5" dir="3 3 -5" castshadow="true"/>
+		
+		
+			
+			<body name="Cylinder_001" pos="1.000000 1.000000 0.000000" quat="1.00000000 0.00000000 0.00000000 0.00000000">
+				<geom type="mesh" mesh="Cylinder_001" material="Cylinder_001_mat" contype="0" conaffinity="0" group="1" />
+				<geom type="mesh" mesh="Cylinder_001_col" group="3" contype="1" conaffinity="1" friction="0.8 0.005 0.0001" />
+			</body>
+			<body name="rubberduck" pos="1.000000 1.000000 0.641339" quat="1.00000000 0.00000000 0.00000000 0.00000000">
+				<freejoint name="rubberduck_free" />
+				<inertial pos="0 0 0" mass="0.10" diaginertia="0.0005 0.0005 0.0005" />
+				<geom type="mesh" mesh="rubberduck" material="rubberduck_mat" contype="0" conaffinity="0" group="1" />
+				<geom type="mesh" mesh="rubberduck" group="3" contype="1" conaffinity="1" friction="0.6 0.005 0.0001" density="700" />
+			</body>
+			
+
+	</worldbody>
+	<option timestep="0.0005" solver="Newton" iterations="200" ls_iterations="100"/>
+</mujoco>
